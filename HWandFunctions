@@ -1,0 +1,24 @@
+Hardware: OptiPlex 7020
+		PCI-E network cards: HP NC375T
+				     Dell QLogic QL41164HFRJ (33M0K)
+	  16 GB Ram
+	  320 GB HDD
+OS: VyOS
+
+Routing Functionality needed:
+
+Ability to view and modify the following in a WebGUI:
+	Network Interfaces
+	vLANs 
+	Firewall
+	DHCP Server with Subnets
+	DNAT
+	VPN (Wireguard, OpenVPN, and/or IPsec)	
+
+Access to the following WebGUIs:
+	ZenArmour
+	Pihole
+	HeadScale
+
+The ability to use multiple WAN connections. 
+A load balancer with QoS. 
