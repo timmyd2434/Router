@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This script automates the installation of ZenArmor, Pi-hole, and Headscale.
+# This script automates the installation of ZenArmor, Pi-hole, Headscale, and VyManager.
 # It is intended to be run on a Debian-based system like VyOS.
 
 # Ensure the script is run as root
@@ -8,6 +8,22 @@ if [ "$(id -u)" -ne 0 ]; then
   echo "This script must be run as root" >&2
   exit 1
 fi
+
+# --- Install Docker and Docker Compose ---
+echo "--- Installing Docker and Docker Compose ---"
+if ! command -v docker &> /dev/null
+then
+    echo "Docker not found, installing..."
+    apt-get update
+    apt-get install -y docker.io
+fi
+if ! command -v docker-compose &> /dev/null
+then
+    echo "Docker Compose not found, installing..."
+    apt-get install -y docker-compose
+fi
+echo "--- Docker and Docker Compose Installation Complete ---"
+echo ""
 
 # --- ZenArmor ---
 echo "--- Starting ZenArmor Installation ---"
@@ -74,5 +90,16 @@ then
     echo "You will need to set the 'server_url' to the public IP address of this machine."
 fi
 echo ""
+
+# --- VyManager ---
+echo "--- Starting VyManager Installation ---"
+if [ ! -d "/opt/VyManager" ]; then
+    echo "VyManager not found, installing..."
+    git clone https://github.com/Community-VyProjects/VyManager/ /opt/VyManager
+    cd /opt/VyManager
+    docker-compose up -d
+    echo "--- VyManager Installation Complete ---"
+    echo "You can access the VyManager web interface at http://<your_vyos_ip>:3000"
+fi
 
 echo "--- Installation Script Finished ---"
