@@ -1,7 +1,7 @@
 # Router
 VyOS additional Features GUI/Installation Scripts
 
-This repository contains a script to automate the installation of ZenArmor, Pi-hole, Headscale, and VyManager on a VyOS-based system.
+This repository contains a script to automate the installation of ZenArmor, Pi-hole, Headscale, and VyManager on a VyOS-based system using Docker.
 
 ## Installation
 
@@ -13,21 +13,17 @@ To install the services, run the following command as root:
 
 ## Manual Configuration
 
-### ZenArmor Registration
-
-After running the main installation script, you will need to manually register your ZenArmor node with the ZenArmor Cloud. To do this, run the following command and follow the on-screen instructions:
-
-```bash
-sudo zenarmorctl cloud register
-```
-
 ### Headscale
 
-After the installation is complete, you will need to configure Headscale by editing the `/etc/headscale/config.yaml` file. You will need to set the `server_url` to the public IP address of this machine. After you have edited the file, restart the Headscale service with the following command:
+After the installation is complete, you will need to configure Headscale by editing the `./headscale/config/config.yaml` file. You will need to set the `server_url` to the public IP address of this machine. After you have edited the file, restart the Headscale service with the following command:
 
 ```bash
-sudo systemctl restart headscale
+docker-compose restart headscale
 ```
+
+### Pi-hole
+
+Your Pi-hole password will be displayed at the end of the installation.
 
 ### VyManager
 
